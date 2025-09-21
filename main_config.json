@@ -1,0 +1,11 @@
+{
+    "data_path": "data_images/",
+    "batch_size": 8,
+    "num_workers": 0,
+    "pin_memory": true,
+    "input_size": [224, 224],
+    "normalize_mean": [0.485, 0.456, 0.406],
+    "normalize_std": [0.229, 0.224, 0.225],
+    "json_name": "json/class_indices_bird.json",
+    "weights_path": "C:\\Users\\22279\\Documents\\The NEW Data Evolving for Supervised Learning_experiment\\shiyan3\\bird\\EfficientNetLite0\\epoch160_acc0.898089.pth"
+}

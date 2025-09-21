@@ -1,0 +1,20 @@
+{
+    "image_path": "C:/Users/22279/Documents/The NEW Data Evolving for Supervised Learning_experiment/image classification/Bird/MobileNetV2/First/bird_data_noNewImg",
+    "batch_size_train": 16,
+    "batch_size_val": 4,
+    "num_workers": 2,
+    "epochs": 200,
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-4,
+    "scheduler_step_size": 20,
+    "scheduler_gamma": 0.8,
+    "input_size": [224, 224],
+    "val_resize": [256, 256],
+    "normalize_mean": [0.485, 0.456, 0.406],
+    "normalize_std": [0.229, 0.224, 0.225],
+    "val_interval": 5,
+    "max_saved_models": 3,
+    "early_stopping_patience": 20,
+    "num_classes": 6,
+    "save": "result/bird/MobileNetV2/result_base/"
+}

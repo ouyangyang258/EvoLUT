@@ -1,0 +1,17 @@
+{
+    "image_path": "C:/Users/22279/Documents/The NEW Data Evolving for Supervised Learning_experiment/image classification/Fruit/TinyResNet/First/bird_data_noNewImg",
+    "image_path123": "C:/Users/22279/Documents/The NEW Data Evolving for Supervised Learning_experiment/image classification/Fruit/TinyResNet/Second/bird_data_noNewImg_First",
+    "batch_size_train": 16,
+    "batch_size_val": 4,
+    "num_workers": 2,
+    "epochs": 200,
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-4,
+    "scheduler_step_size": 20,
+    "scheduler_gamma": 0.8,
+    "input_size1": 224,
+    "input_size2": 224,
+    "num_classes": 10,
+    "save123": "result/Fruit/TinyResNet/result_HCCGA_3/",
+    "save": "result/Fruit/TinyResNet/result_contrast/"
+}
