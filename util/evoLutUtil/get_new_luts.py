@@ -1,4 +1,3 @@
-# encoding=utf-8
 import glob
 import os
 import pickle
@@ -17,10 +16,10 @@ for i in range(1, 10):
 
 
 def main(LutsName, CubeName, n):
-    # x = np.random.randint(0, 256, size=(EXP[n], EXP[n], EXP[n], 3)).tolist()  # 随机生成矩阵
+    # x = np.random.randint(0, 256, size=(EXP[n], EXP[n], EXP[n], 3)).tolist()
     with open(CubeName, 'rb') as file:
         x = pickle.load(file)
-    # with open(CubeName, 'rb') as file:  # 读取初始矩阵
+    # with open(CubeName, 'rb') as file:
     #    x_begin = pickle.load(file)
     # file.close()
     # print(x_begin == x)
@@ -44,7 +43,5 @@ def main(LutsName, CubeName, n):
         file_handle.write(str(i))
         file_handle.write("\n")
     file_handle.close()
-    # print("已生成初始种群矩阵和对应的luts表")
-    # pprint.pprint(x)
 
 

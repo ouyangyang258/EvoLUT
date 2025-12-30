@@ -5,19 +5,19 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 def train_one_batch(images, labels, device, model, criterion, optimizer, epoch, batch_idx):
-    """训练一个 batch 并返回日志"""
+    """Train a batch and return logs"""
     images, labels = images.to(device), labels.to(device)
 
-    # 前向传播与计算损失
+    # Forward propagation and computational loss
     outputs = model(images)
     loss = criterion(outputs, labels)
 
-    # 反向传播与更新
+    # Backpropagation and Update
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
-    # 转 numpy 计算指标
+    # Convert numpy calculation metrics
     preds = torch.argmax(outputs, 1).cpu().numpy()
     loss = loss.item()
     labels = labels.cpu().numpy()
@@ -31,7 +31,6 @@ def train_one_batch(images, labels, device, model, criterion, optimizer, epoch, 
 
 
 def evaluate_testset(test_loader, device, model, criterion, epoch):
-    """在整个测试集上评估并返回日志"""
     model.eval()
     loss_list, labels_list, preds_list = [], [], []
 

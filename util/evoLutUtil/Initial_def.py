@@ -1,4 +1,3 @@
-# encoding=utf-8
 import os
 from PIL import Image
 import torchvision.transforms as transforms
@@ -14,7 +13,7 @@ class ImageDataset:
         ])
         self.data = []
         img_files = sorted(os.listdir(image_dir))
-        for img_file in tqdm(img_files, desc='预加载图像'):
+        for img_file in tqdm(img_files, desc='Preloading images'):
             img_path = osp.join(self.image_dir, img_file)
             img = Image.open(img_path).convert("RGB")
             img_tensor = self.transform(img)

@@ -1,8 +1,6 @@
-# encoding=utf-8
 import pickle
 from shutil import copy
 import numpy as np
-from tqdm import tqdm
 
 from main import PROJECT_ROOT
 
@@ -14,7 +12,7 @@ for i in range(1, 10):
 
 def saveLuts(path, times):
     if times == 1:
-        fd = open(path)  # 选择一个cube映射文件
+        fd = open(path)
         lines = fd.readlines()
         y = 1
         for l in lines:
@@ -24,7 +22,7 @@ def saveLuts(path, times):
             copy(file, dir_dst_Luts)
             y += 1
     else:
-        fd = open(path)  # 选择一个cube映射文件
+        fd = open(path)
         lines = fd.readlines()
         y = 1
         for l in lines:
@@ -52,7 +50,7 @@ def getLutsAndCube(LutsName, CubeName, n, usedPixList):
                 rgbFloatCube_new.append(rgbFloat)
                 sum1 += 1
 
-    with open(CubeName, 'wb') as file:  # 保存初始矩阵
+    with open(CubeName, 'wb') as file:
         pickle.dump(y, file)
     file.close()
 

@@ -1,4 +1,3 @@
-# coding:utf-8
 import json
 import math
 import os
@@ -16,9 +15,10 @@ from multiprocessing import Pool
 from torchvision import transforms
 from model import EfficientNetLite0, MobileNetV2
 from util.evoLutUtil.testInthisproject_new_new import load_class_mapping, calculate_folder_loss
-from util.evoLutUtil import util, Select, Operator, mapping_plus_tensor_a100_trilinear_interpolation, \
+from util.evoLutUtil import Util, Select, Operator, mapping_plus_tensor_a100_trilinear_interpolation, \
     getUsedRGBpix_trilinear, get_new_luts, get_hilbert_new, get_lutsAndcube, hilbert_get_cube, Initial_def
-from util.evoLutUtil.util import deletTxt, draw, save_to_txt
+from util.evoLutUtil.Util import deletTxt, draw, save_to_txt
+from util.trainUtil import util
 
 with open("main_config.json", "r") as f:
     config = json.load(f)
@@ -27,7 +27,7 @@ data_transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=config["normalize_mean"], std=config["normalize_std"])
 ])
-# 全局变量
+# global variable
 num = 0
 json_name = config["json_name"]
 list_index = []
@@ -37,25 +37,25 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 weights_path = config["weights_path"]
 num_classes = 6
 keep_count = 3
-# 设置图片数量为z
+# Set the number of images to z
 z = util.getImagesNumber()
-# 设置当前luts表的维度 v
+# Set the capacity of the current 3D LUTs to v × v × v
 v = 4
 # v = 2^n
 n = int(math.log(v, 2))
-# 设置协同优化分组数
+# Set the number of collaborative optimization groups to c
 c = 4
-# 设置初始种群数量 m
+# Set initial population size m
 m = 100
-# 设置优化轮数 epoch
+# Set optimization frequency
 epoch = 5
-# 判断是否使用剪枝操作:
+# Whether to use pruning operation
 useCut = False
 
 
 def initialization(m, n, c, num, times, usedPixList):
-    # ------------------------------1. 生成初始种群----------------------------------------
-    for i in tqdm(range(m), colour='blue', desc='正在随机生成 LUTs 文件和 Cube 文件'):
+    # ------------------------------1. Generate initial population----------------------------------
+    for i in tqdm(range(m), colour='blue', desc='Randomly generating 3D LUTs files and Cube files'):
         luts_name = f"ourLuts/luts_{i + 1}.cube"
         cube_name = f"ourCUBES/cube_{i + 1}.pickle"
         get_lutsAndcube.getLutsAndCube(LutsName=luts_name, CubeName=cube_name, n=n, usedPixList=usedPixList)
@@ -63,19 +63,19 @@ def initialization(m, n, c, num, times, usedPixList):
         dir_dst_luts = PROJECT_ROOT + f'/main_result/result/New Test1/Test{i + 1}'
         os.makedirs(dir_dst_luts, exist_ok=True)
         shutil.copy(luts_name, dir_dst_luts)
-    # ------------------------------ 2. 映射并保存图片 ----------------------------------------
-    for i in tqdm(range(m), colour='blue', desc='映射并保存图片'):
+    # ------------------------------ 2. Map and save images ----------------------------------------
+    for i in tqdm(range(m), colour='blue', desc='Map and save images'):
         mapping_plus_tensor_a100_trilinear_interpolation.Mapping(i, cubepath="ourLuts", times=1, n=n,
                                                                  dataloader=dataloader)
-    # ------------------------------ 3. 生成 Hilbert 编码 ----------------------------------------
+    # ------------------------------ 3. Generate Hilbert curve encoding ----------------------------
     solution = [[] for _ in range(m)]
-    for j in tqdm(range(m), colour='blue', desc='生成 Hilbert 曲线编码'):
+    for j in tqdm(range(m), colour='blue', desc='Generate Hilbert curve encoding'):
         cube_name = f"ourCUBES/cube_{j + 1}.pickle"
         with open(f"ourHILBERTS/hilbert_{j + 1}.txt", "w") as f:
             get_hilbert_new.getHilbert(n=n, CubeName=cube_name, file_handle=f, solution=solution, jj=j)
         with open(f"ourLitterHILBERTS/hilbert_{j + 1}.txt", "w") as f:
             get_hilbert_new.getLitterHilbert(n=n, CubeName=cube_name, file_handle=f, solution=solution, jj=j)
-    # ------------------------------ 4. 精度计算 ----------------------------------------
+    # ------------------------------ 4. Calculate fitness value ------------------------------------
     file_path = f"accuracy/accuracy{times}.txt"
     class_mapping = load_class_mapping(json_name)
     folder_paths = [
@@ -97,40 +97,40 @@ def initialization(m, n, c, num, times, usedPixList):
     list_answer.append(Min)
     num += 1
     list_index.append(num)
-    print(f"第 {times} 轮优化完成")
-    # ------------------------------ 5. 选取最优种群 ----------------------------------------
+    print(f"The {times} round of optimization has been completed!")
+    # ------------------------------ 5. Select the optimal population ----------------------------------------
     best_pop = get_best_population(times)
     copydir("ourHILBERTS/", "BestPopulation/hilbert/", best_pop, "BestPopulation/hilbert/thebestpopulathon.txt")
     copydir("ourLitterHILBERTS/", "BestPopulation/hilbert/", best_pop,
             "BestPopulation/hilbert/thebestLittlepopulathon.txt")
     copydir("ourLuts/", "BestPopulation/lut/", best_pop, "BestPopulation/lut/thebestpopulathon.cube")
     copydir("ourCUBES/", "BestPopulation/cube/", best_pop, "BestPopulation/cube/thebestpopulathon.pickle")
-    # ------------------------------ 6. 锦标赛选择 ----------------------------------------
+    # ------------------------------ 6. tournament selection  ----------------------------------------
     numbers = [float(line.strip()) for line in open(file_path)]
     selected = Select.tournament_selection(numbers, int(m * 0.6), "util/evoLutUtil/Select_list.txt")
     New_solution = [solution[i - 1] for i in selected]
 
-    # 复制并重命名 Hilbert 文件
+    # Copy and rename Hilbert files
     os.makedirs("ourLitterHILBERTS-New", exist_ok=True)
     for new_idx, ori_idx in enumerate(selected, start=1):
         src = os.path.join("ourLitterHILBERTS", f"hilbert_{ori_idx}.txt")
         dst = os.path.join("ourLitterHILBERTS-New", f"hilbert_{new_idx}.txt")
         shutil.copy(src, dst)
-    # ------------------------------ 7. 分组 Hilbert 曲线 ----------------------------------------
+    # ------------------------------ 7. Grouping Hilbert Curve ----------------------------------------
     segmentHilbert(c, "BestPopulation/hilbert/thebestLittlepopulathon.txt", "BestPopulation/segmentLittleHilbert")
     if os.path.exists('BestPopulation/segmentLittleHilbert_change'):
         shutil.rmtree('BestPopulation/segmentLittleHilbert_change')
     shutil.copytree('BestPopulation/segmentLittleHilbert', 'BestPopulation/segmentLittleHilbert_change')
 
-    for j in tqdm(range(m), colour="blue", desc="Hilbert 曲线分组"):
+    for j in tqdm(range(m), colour="blue", desc="Grouping Hilbert Curve"):
         segmentHilbert(c, f"ourLitterHILBERTS-New/hilbert_{j + 1}.txt", f"theSegHilbert/hilbert_{j + 1}")
 
     return New_solution
 
 
 def evolution(times, m, n, c, num, solution):
-    for j in tqdm(range(c), colour='blue', desc="交叉变异得到新的hilbert曲线编码"):
-        # ========== 加载Hilbert曲线 ==========
+    for j in tqdm(range(c), colour='blue', desc="Cross mutation yields new Hilbert curve encoding"):
+        # ========== Load Hilbert curve ==========
         path = 'theSegHilbert' if times == 1 else 'theSegHilbert_new'
         list1 = []
         for i in range(m):
@@ -138,14 +138,14 @@ def evolution(times, m, n, c, num, solution):
             with open(hilbert_path, "r") as f:
                 list1.append([int(line.strip()) for line in f])
 
-        # ========== 随机交叉与变异 ==========
+        # ========== Crossover and variation ==========
         numbers = list(range(m))
         for _ in range(len(numbers) // 2):
             x, y = random.sample(numbers, 2)
             numbers = list(set(numbers) - {x, y})
             Operator.Crossover(x, y, list1)
         Operator.RandomVariation(list=list1, n=m, Variation_probability=0.1)
-        # 保存新Hilbert曲线
+        # Save new Hilbert curve
         for i in range(m):
             folder = f"theSegHilbert_new/hilbert_{i + 1}"
             os.makedirs(folder, exist_ok=True)
@@ -156,7 +156,7 @@ def evolution(times, m, n, c, num, solution):
             shutil.rmtree('theSegHilbert_middle')
         shutil.copytree('theSegHilbert', 'theSegHilbert_middle')
 
-        # ========== 生成新的solution ==========
+        # ========== Generate a new solution ==========
         solution2, solutionMeg = [], copy.deepcopy(solution)
         for i in range(m):
             shutil.copy(
@@ -175,8 +175,8 @@ def evolution(times, m, n, c, num, solution):
                 f.writelines(f"{v}\n" for v in solutionMeg[i])
             with open(f"theMergeHilbert_return/hilbert_{i + 1}.txt") as f:
                 solution2.append([int(line.strip()) for line in f])
-        # ========== LUT映射并保存 ==========
-        for i in tqdm(range(m), colour='blue', desc='映射并保存图片'):
+        # ========== Map and save 3D LUTs ==========
+        for i in tqdm(range(m), colour='blue', desc='Map and save images'):
             hilbert_get_cube.main2(n=n, l=i + 1, times=times, list=solution2[i])
             luts = f"ourNewLuts/luts_{i + 1}.cube"
             cube = f"ourNewCUBES/New cube_{i + 1}.pickle"
@@ -187,7 +187,7 @@ def evolution(times, m, n, c, num, solution):
             mapping_plus_tensor_a100_trilinear_interpolation.Mapping(
                 i, cubepath='ourNewLuts', times=times + 1, n=n, dataloader=dataloader
             )
-        # ========== 准确率计算 ==========
+        # ========== Adaptation value calculation ==========
         acc_dir = f"accuracy/accuracy{times}"
         os.makedirs(acc_dir, exist_ok=True)
         acc_path = f"{acc_dir}/accuracy_{j + 1}.txt"
@@ -204,7 +204,7 @@ def evolution(times, m, n, c, num, solution):
                 print("Loss =", loss)
                 f.write(f"{loss}\n")
 
-        # ========== 选择与更新 ==========
+        # ========== Selection and Update ==========
         if os.path.exists('theSegHilbert_new_test'):
             shutil.rmtree('theSegHilbert_new_test')
         shutil.copytree('theSegHilbert_new', 'theSegHilbert_new_test')
@@ -212,7 +212,7 @@ def evolution(times, m, n, c, num, solution):
             numbers_1 = [float(line.strip()) for line in f]
         Select.tournament_selection(numbers_1, int(m * 0.6), "util/evoLutUtil/Select_list.txt")
 
-        # --------------编号保存在Select_list.txt中，得到选择到的luts表存放到项目中----------------
+        # --------------The number is saved in Selectilist.txt, and the selected luts table is stored in the project----------------
         with open("util/evoLutUtil/Select_list.txt") as f:
             selectlist = [line.strip() for line in f]
         for x in range(m):
@@ -223,7 +223,7 @@ def evolution(times, m, n, c, num, solution):
 
         shutil.rmtree('theSegHilbert_new')
         shutil.copytree('theSegHilbert_new_test', 'theSegHilbert_new')
-        # ========== 更新最优解 ==========
+        # ========== Update the optimal solution ==========
         if Min <= list_answer[-1]:
             num += 1
             list_answer.append(Min)
@@ -259,16 +259,16 @@ def get_best_population(times, c=None):
                         min_value, best_line = value, idx
 
         if best_line:
-            print(f"此轮最小 loss 值为: {min_value}，对应第 {best_line} 个个体")
+            print(f"The minimum loss value for this round is {min_value}, corresponding to the {best_line} th individual")
             return best_line
         else:
-            print(f"{file_path} 中没有有效数据")
+            print(f"There is no valid data in {file_path}")
             return None
     except FileNotFoundError:
-        print(f"未找到文件: {file_path}")
+        print(f"File not found: {file_path}")
         return None
     except Exception as e:
-        print(f"错误: {e}")
+        print(f"error: {e}")
         return None
 
 
@@ -276,29 +276,29 @@ def main():
     deletTxt()
     torch.cuda.empty_cache()
 
-    # 加载模型
+    # load model
     model = EfficientNetLite0(num_classes=num_classes).to(device)
     model.load_state_dict(torch.load(weights_path))
     model.eval()
 
-    # 脚本化模型保存
+    # Script based model saving
     torch.jit.script(model).save(scripted_model_path)
-    print(f"脚本化模型已保存到: {scripted_model_path}")
+    print(f"The scripted model has been saved to: {scripted_model_path}")
 
-    # 是否使用剪枝操作
+    # Whether to use pruning operation
     if useCut:
         usedPixList, lenusedPixList, len2, len1 = getUsedRGBpix_trilinear.GetRGBpix(n)
     else:
         usedPixList = list(range(v * v * v))
 
-    # ***********************************初始化*******************************************
-    print("开始初始化：")
+    # *********************************** initialization *******************************************
+    print("Initialization started：")
     solution = initialization(m, n, c, 0, 1, usedPixList)
-    # ***********************************优化*******************************************
-    print("开始优化3D LUT：")
+    # *********************************** optimize *******************************************
+    print("Start optimizing 3D LUTs：")
     num = 1
     for i in range(epoch):
-        print(f"第 {i + 1}/{epoch} 轮优化开始")
+        print(f"The {i+1}/{epoch} round of optimization begins")
 
         folder_to_delete = PROJECT_ROOT + f"/main_result/result/New Test{i - keep_count}"
         if i > keep_count and os.path.exists(folder_to_delete):
@@ -310,7 +310,7 @@ def main():
         draw(list_index, list_answer, i + 1)
         num = len(list_answer)
 
-    print("3D LUT优化已完成")
+    print("3D LUTs optimization completed")
 
 
 if __name__ == '__main__':

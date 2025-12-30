@@ -1,4 +1,3 @@
-# encoding=utf-8
 import pickle
 import numpy as np
 
@@ -14,7 +13,7 @@ un_hilbert_map = {'a': {0: (0, 0, 'd'), 1: (0, 1, 'a'), 3: (1, 0, 'b'), 2: (1, 1
                   }
 
 
-def unsigned_int_mixRGB(R, G, B):  # 将（R，G，B）转化为一个整数
+def unsigned_int_mixRGB(R, G, B):  # Convert (R, G, B) to an integer
     result = (R << 16) | (G << 8) | B
     return result
 

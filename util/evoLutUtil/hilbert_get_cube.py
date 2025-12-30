@@ -16,19 +16,19 @@ un_hilbert_map = {'a': {0: (0, 0, 'd'), 1: (0, 1, 'a'), 3: (1, 0, 'b'), 2: (1, 1
                   }
 
 
-def unsigned_int_mixRGB(R, G, B):  # 将（R，G，B）转化为一个整数
+def unsigned_int_mixRGB(R, G, B):  # Convert (R, G, B) to an integer
     result = (R << 16) | (G << 8) | B
     return result
 
 
-def decomposeRGB(input):  # 将整数转化为（R，G，B）
+def decomposeRGB(input):  # Convert an integer to (R, G, B)
     r = (input >> 16) & 0xff
     g = (input >> 8) & 0xff
     b = input & 0xff
     return [r, g, b]
 
 
-def point_to_hilbert(x, y, order):  # 一维列表解码正方形矩阵
+def point_to_hilbert(x, y, order):
     current_square = 'a'
     position = 0
     for i in range(order - 1, -1, -1):
@@ -40,10 +40,10 @@ def point_to_hilbert(x, y, order):  # 一维列表解码正方形矩阵
     return position
 
 
-def hilbert_to_point(d, order):  # 得到由hilbert曲线编码的点
+def hilbert_to_point(d, order):
     current_square = 'a'
     x = y = 0
-    for i in range(order - 1, -1, -1):  # 3的二进制为11，然后左移2i倍，与d取按位与后右移2i倍，得到象限编码
+    for i in range(order - 1, -1, -1):
         mask = 3 << (2 * i)
         quad_position = (d & mask) >> (2 * i)
         quad_x, quad_y, current_square = un_hilbert_map[current_square][quad_position]
@@ -60,7 +60,6 @@ def main(n, file_handle, l, times):
     y = np.zeros([EXP[n], EXP[n], EXP[n]], dtype=int).tolist()
     y_new = np.zeros([EXP[n], EXP[n], EXP[n]], dtype=int).tolist()
     list = [int(line.strip()) for line in file_handle.readlines()]
-    # print("一维列表解码为%d*%d*%d的正方体矩阵:" % (EXP[n], EXP[n], EXP[n]))
     for c in range(EXP[n]):
         for a in range(EXP[n]):
             for b in range(EXP[n]):
@@ -85,7 +84,6 @@ def main2(n, l, times, list):
 
     y = np.zeros([EXP[n], EXP[n], EXP[n]], dtype=int).tolist()
     y_new = np.zeros([EXP[n], EXP[n], EXP[n]], dtype=int).tolist()
-    # print("一维列表解码为%d*%d*%d的正方体矩阵:" % (EXP[n], EXP[n], EXP[n]))
     for c in range(EXP[n]):
         for a in range(EXP[n]):
             for b in range(EXP[n]):
@@ -109,7 +107,6 @@ def main3(n, l, times, list):
 
     y = np.zeros([EXP[n], EXP[n], EXP[n]], dtype=int).tolist()
     y_new = np.zeros([EXP[n], EXP[n], EXP[n]], dtype=int).tolist()
-    # print("一维列表解码为%d*%d*%d的正方体矩阵:" % (EXP[n], EXP[n], EXP[n]))
     for c in range(EXP[n]):
         for a in range(EXP[n]):
             for b in range(EXP[n]):
@@ -126,19 +123,17 @@ def main3(n, l, times, list):
     with open(PROJECT_ROOT + '/ourNewCUBES-test/New cube_{}.pickle'.format(l), 'wb') as file:
         pickle.dump(y_new, file)
 
-# 定义一个函数来从文件中提取所有整数
-def extract_integers_from_txt(file_path):
-    numbers = []  # 用于存储提取的整数
 
-    # 打开文件并逐行读取
+def extract_integers_from_txt(file_path):
+    numbers = []
+
     with open(file_path, 'r') as file:
         for line in file:
-            # 去掉每行的换行符，转换为整数并添加到列表
+
             try:
-                number = int(line.strip())  # 去掉换行符并转换为整数
+                number = int(line.strip())
                 numbers.append(number)
             except ValueError:
-                # 如果遇到无法转换为整数的行，可以忽略或处理错误
                 pass
 
     return numbers
