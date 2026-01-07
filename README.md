@@ -5,7 +5,6 @@
 [![English](https://img.shields.io/badge/language-English-blue)](README.md)
 [![中文](https://img.shields.io/badge/language-中文-red)](README-zh.md)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![PyPI](https://img.shields.io/pypi/v/evolut)](https://pypi.org/project/evolut/)
 
 </div>
 
