@@ -11,7 +11,6 @@
 ## 📑 Table of Contents | 目录
 - [✨ Overview | 项目简介](#-overview)
 - [🚀 Quick Start | 快速开始](#-quick-start)
-- [📦 Installation | 安装](#-installation)
 - [🎯 Features | 功能特性](#-features)
 - [📚 Documentation | 文档](#-documentation)
 - [🤝 Contributing | 贡献指南](#-contributing)
