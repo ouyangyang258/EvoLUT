@@ -17,7 +17,7 @@ from util.trainUtil.util import plot_metrics
 from util.trainUtil.train_one_batch import train_one_batch, evaluate_testset
 from util.trainUtil.util import load_config
 
-CONFIG_PATH = "config/bird/bird_MobileNetV2.json"
+CONFIG_PATH = "config/bird_MobileNetV2.json"
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
