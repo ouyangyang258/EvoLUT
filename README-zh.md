@@ -1,9 +1,38 @@
 <div align="center">
-  <p>
-    <a href="README.md">English</a> | 
-    <a href="README-zh.md">中文</a>
-  </p>
+
+# EvoLUT - Evolving 3D Look-Up Tables
+
+[![English](https://img.shields.io/badge/language-English-blue)](README.md)
+[![中文](https://img.shields.io/badge/language-中文-red)](README-zh.md)
+[![许可证: MIT](https://img.shields.io/badge/许可证-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyPI](https://img.shields.io/pypi/v/evolut)](https://pypi.org/project/evolut/)
+
 </div>
 
-# EvoLUT
-    随着大规模数据集的涌现和计算能力的持续增强，深度学习在计算机视觉领域已取得显著突破。然而，在训练样本有限的场景下，模型性能和泛化能力仍面临明显制约。现有基于图像数据增强的小样本学习方法虽可部分缓解数据稀缺问题，但往往未能充分挖掘有限样本中蕴含的潜在信息，从而限制了数据多样性的有效提升。为克服这一局限，本研究提出一种基于三维映射表的创新图像数据增强框架。该框架首先利用在原始数据集上预训练的视觉模型，进而通过协同进化算法在对三维映射表进行像素级优化，显著提升样本的多样性。其次，引入剪枝策略，移除三维映射表中对映射结果影响较小的冗余元素，从而缩短编码长度并降低计算复杂度。优化后的三维映射表展现出良好的泛化能力，能够对部分未见数据实现增强效果。该设计确保了增强数据在保持语义一致性的同时，展现出更丰富且信息量更高的特征分布，从而有效缓解数据稀缺所带来的影响。在多个基准数据集上进行的大量实验表明，所提出的框架在多项评估指标上均显著优于现有图像数据增强方法，验证了其有效性与优越性。
+## 📑 目录 | Table of Contents
+- [✨ 项目简介 | Overview](#-项目简介)
+- [🚀 快速开始 | Quick Start](#-快速开始)
+- [📦 安装 | Installation](#-安装)
+- [🎯 功能特性 | Features](#-功能特性)
+- [📚 文档 | Documentation](#-文档)
+- [🤝 贡献指南 | Contributing](#-贡献指南)
+- [📄 许可证 | License](#-许可证)
+
+## ✨ 项目简介
+
+## 🚀 快速开始
+
+## 📦 安装
+
+## 🎯 功能特性
+
+## 📖 使用示例
+
+## 📚 文档
+
+## 🤝 贡献指南
+
+## 📄 许可证
+
+## 🙏 致谢
