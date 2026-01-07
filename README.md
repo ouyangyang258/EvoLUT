@@ -20,6 +20,18 @@
 - [📄 License | 许可证](#-license)
 
 ## ✨ Overview
+### 🔬 Core Innovations
+### 1. **Evolutionary 3D-LUT Optimization Framework**
+We propose a novel evolutionary algorithm-based optimization framework that adaptively searches and constructs 3D Look-Up Table parameters. This approach achieves data augmentation with both **semantic rationality** and **visual diversity** through intelligent parameter optimization.
+
+### 2. **Hilbert Curve Structural Encoding**
+By utilizing the spatial filling properties of Hilbert curves, we transform the high-dimensional structure of 3D LUTs into compact one-dimensional sequence encoding. This innovative encoding method **preserves spatial locality** while significantly improving **search efficiency**.
+
+### 3. **Adaptive Encoding Pruning Strategy**
+Through comprehensive analysis of gene loci contributions to mapping results, we introduce an intelligent pruning mechanism that eliminates less impactful dimensions. This strategy **reduces encoding length by 30-50%** and substantially **decreases computational overhead** during evolutionary iterations.
+
+### 4. **Intelligent Sampling and Filtering Mechanism**
+We establish a robust sampling and selection pipeline that optimizes 3D-LUTs on training subsets and filters generated samples based on **visual quality** and **semantic consistency** criteria. This ensures the production of **high-quality augmented data** with proven effectiveness.
 
 ## 🚀 Quick Start
 
