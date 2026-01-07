@@ -4,7 +4,6 @@
 
 [![English](https://img.shields.io/badge/language-English-blue)](README.md)
 [![中文](https://img.shields.io/badge/language-中文-red)](README-zh.md)
-[![许可证: MIT](https://img.shields.io/badge/许可证-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/evolut)](https://pypi.org/project/evolut/)
 
@@ -17,7 +16,6 @@
 - [🎯 Features | 功能特性](#-features)
 - [📚 Documentation | 文档](#-documentation)
 - [🤝 Contributing | 贡献指南](#-contributing)
-- [📄 License | 许可证](#-license)
 
 ## ✨ Overview
 With the emergence of large-scale datasets and continuous advancements in computational power, deep learning has achieved significant breakthroughs in computer vision. However, in scenarios with limited training samples, model performance and generalization capabilities remain significantly constrained. Existing few-shot learning methods based on image data augmentation can partially alleviate data scarcity issues, but they often fail to fully exploit the latent information within limited samples, thereby limiting the effective enhancement of data diversity. To overcome this limitation, this study proposes an innovative image data augmentation framework based on a three-dimensional mapping table. This framework first leverages a pre-trained visual model on the original dataset, then employs a co-evolutionary algorithm to perform pixel-level optimization on the 3D Look-Up Table, significantly enhancing sample diversity. Secondly, a pruning strategy is introduced to remove redundant elements in the 3D Look-Up Table that have minimal impact on mapping results, thereby reducing encoding length and computational complexity. The optimized 3D Look-Up Table demonstrates strong generalization capabilities, effectively enhancing unseen data. This design ensures augmented data maintains semantic consistency while exhibiting richer, more informative feature distributions, thereby mitigating the impact of data scarcity. Extensive experiments across multiple benchmark datasets confirm the proposed framework significantly outperforms existing image data augmentation methods on multiple evaluation metrics, validating its effectiveness and superiority.
@@ -47,6 +45,32 @@ We establish a robust sampling and selection pipeline that optimizes 3D LUTs on 
 
 ## 🤝 Contributing
 
-## 📄 License
+Thank you for your interest in the EvoLUT project! Guidelines and instructions for contributing will be provided next.
+
+### Quick Start
+1. **Fork** the repository
+2. **Clone** your fork: `git clone https://github.com/YOUR_USERNAME/EvoLUT.git`
+3. **Install** dev dependencies: `pip install -e ".[dev]"`
+4. **Create** a branch: `git checkout -b feature/your-feature`
+5. **Make** your changes and test: `pytest`
+6. **Commit**: `git commit -m "feat: add new feature"`
+7. **Push**: `git push origin feature/your-feature`
+8. **Open** a Pull Request
+
+### Guidelines
+- Follow [PEP 8](https://pep8.org/) style
+- Add tests for new features
+- Update documentation
+- Use descriptive commit messages
+
+### Need Help?
+- Ask in GitHub Discussions
+- Review existing PRs for examples
+
+Every contribution, big or small, is appreciated! 🎉
 
 ## 🙏 Acknowledgments
+- We extend our gratitude to all contributors for their invaluable contributions.
+- We thank the open-source community for its support.
+- We acknowledge the inspiration drawn from relevant research.
+- We appreciate users for their usage and feedback.

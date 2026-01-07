@@ -4,7 +4,6 @@
 
 [![English](https://img.shields.io/badge/language-English-blue)](README.md)
 [![中文](https://img.shields.io/badge/language-中文-red)](README-zh.md)
-[![许可证: MIT](https://img.shields.io/badge/许可证-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/evolut)](https://pypi.org/project/evolut/)
 
@@ -17,7 +16,6 @@
 - [🎯 功能特性 | Features](#-功能特性)
 - [📚 文档 | Documentation](#-文档)
 - [🤝 贡献指南 | Contributing](#-贡献指南)
-- [📄 许可证 | License](#-许可证)
 
 ## ✨ 项目简介
 随着大规模数据集的涌现和计算能力的持续增强，深度学习在计算机视觉领域已取得显著突破。然而，在训练样本有限的场景下，模型性能和泛化能力仍面临明显制约。 现有基于图像数据增强的小样本学习方法虽可部分缓解数据稀缺问题，但往往未能充分挖掘有限样本中蕴含的潜在信息，从而限制了数据多样性的有效提升。 为克服这一局限，我们提出了 **EvoLUT** —— 一种基于三维映射表(3D Look-Up Tables)优化的图像数据增强框架。 本框架首先利用在原始数据集上预训练的视觉模型，进而通过协同进化算法对三维映射表进行像素级优化，显著提升样本的多样性。
@@ -46,7 +44,31 @@
 ## 📚 文档
 
 ## 🤝 贡献指南
+感谢你对 EvoLUT 项目的关注！接下来将提供贡献的指南和说明。
 
-## 📄 许可证
+### 快速开始
+1. **Fork** 仓库
+2. **克隆**你的 Fork: `git clone https://github.com/你的用户名/EvoLUT.git`
+3. **安装**开发依赖: `pip install -e ".[dev]"`
+4. **创建**分支: `git checkout -b feature/你的功能`
+5. **修改**代码并测试: `pytest`
+6. **提交**: `git commit -m "feat: 添加新功能"`
+7. **推送**: `git push origin feature/你的功能`
+8. **创建** Pull Request
 
+### 基本要求
+- 遵循 [PEP 8](https://pep8.org/) 代码规范
+- 新功能需要添加测试
+- 更新相关文档
+- 使用清晰的提交信息
+
+### 需要帮助？
+- 在 GitHub Discussions 提问
+- 参考已有的 PR 示例
+
+无论贡献大小，我们都非常感谢！🎉
 ## 🙏 致谢
+- 感谢所有贡献者的宝贵贡献
+- 感谢开源社区的支持
+- 感谢相关研究的启发
+- 感谢用户的使用和反馈
