@@ -39,8 +39,6 @@ cd EvoLUT
 ## Install dependencies (recommended to use a virtual environment)
 pip install -r requirements.txt
 
-## 📦 Installation
-
 ## 🎯 Features
 
 ## 📖 Usage Examples

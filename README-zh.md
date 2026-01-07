@@ -39,9 +39,6 @@ cd EvoLUT
 ## 安装依赖包（推荐使用虚拟环境）
 pip install -r requirements.txt
 
-
-## 📦 安装
-
 ## 🎯 功能特性
 
 ## 📖 使用示例
