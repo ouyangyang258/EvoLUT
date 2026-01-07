@@ -33,6 +33,12 @@ Through comprehensive analysis of gene loci contributions to mapping results, we
 We establish a robust sampling and selection pipeline that optimizes 3D LUTs on training subsets and filters generated samples based on **visual quality** and **semantic consistency** criteria. This ensures the production of **high-quality augmented data** with proven effectiveness.
 
 ## 🚀 Quick Start
+## Clone the project locally
+git clone https://github.com/ouyangyang258/EvoLUT.git
+
+cd EvoLUT
+## Install dependencies (recommended to use a virtual environment)
+pip install -r requirements.txt
 
 ## 📦 Installation
 

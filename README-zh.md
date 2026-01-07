@@ -33,6 +33,13 @@
 建立了稳健的采样和选择流程，基于训练集子集优化3D LUTs参数，并根据**视觉质量**与**语义一致性**标准筛选生成样本。确保产出**高质量的增强数据**，保证增强效果的有效性。
 
 ## 🚀 快速开始
+## 克隆项目到本地
+git clone https://github.com/ouyangyang258/EvoLUT.git
+
+cd EvoLUT
+## 安装依赖包（推荐使用虚拟环境）
+pip install -r requirements.txt
+
 
 ## 📦 安装
 
