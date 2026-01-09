@@ -1,11 +1,11 @@
 {
-    "data_path": "data_images/",
+    "data_path": "Optimization_Datasets/data_images_bird/",
     "batch_size": 8,
     "num_workers": 0,
     "pin_memory": true,
     "input_size": [224, 224],
     "normalize_mean": [0.485, 0.456, 0.406],
     "normalize_std": [0.229, 0.224, 0.225],
-    "json_name": "json/class_indices_bird.json",
-    "weights_path": "C:\\Users\\22279\\Documents\\The NEW Data Evolving for Supervised Learning_experiment\\shiyan3\\bird\\EfficientNetLite0\\epoch160_acc0.898089.pth"
+    "json_name": "Datasets_Class_Indices/class_indices_CUB_200_2011.json",
+    "weights_path": "Weights_Path/CUB_200_2011_base_MobileNetV2_epoch125_acc0.783439.pth"
 }

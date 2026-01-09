@@ -1,0 +1,25 @@
+{
+    "model": "MobileNetV2",
+    "image_path": "Your dataset path",
+    "batch_size_train": 16,
+    "batch_size_val": 4,
+    "num_workers": 2,
+    "epochs": 400,
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-4,
+    "scheduler_step_size": 20,
+    "scheduler_gamma": 0.8,
+    "input_size1": 224,
+    "input_size2": 224,
+    "num_classes": 3,
+    "save": "Your model weight saving path",
+    "train_augmentations": {
+        "CoarseDropout": false,
+        "CLAHE": false,
+        "ColorJitter": false,
+        "Lambda": false,
+        "Sharpen": false,
+        "GaussNoise": false,
+        "GaussianBlur": false
+    }
+}

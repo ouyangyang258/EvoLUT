@@ -7,18 +7,17 @@ import shutil
 import torch
 from tqdm import tqdm
 from torch.utils.data import DataLoader
-
-from util.constants import PROJECT_ROOT
-from util.evoLutUtil.segmentAndmerge import segmentHilbert, mergeHilber
-from util.evoLutUtil.copydir import copydir
+from Util.constants import PROJECT_ROOT
+from Util.EvoLUT_Util.segmentAndmerge import segmentHilbert, mergeHilber
+from Util.EvoLUT_Util.copydir import copydir
 from multiprocessing import Pool
 from torchvision import transforms
 from model import EfficientNetLite0, MobileNetV2
-from util.evoLutUtil.testInthisproject_new_new import load_class_mapping, calculate_folder_loss
-from util.evoLutUtil import Util, Select, Operator, mapping_plus_tensor_a100_trilinear_interpolation, \
+from Util.EvoLUT_Util.testInthisproject_new_new import load_class_mapping, calculate_folder_loss
+from Util.EvoLUT_Util import Util, Select, Operator, mapping_plus_tensor_a100_trilinear_interpolation, \
     getUsedRGBpix_trilinear, get_new_luts, get_hilbert_new, get_lutsAndcube, hilbert_get_cube, Initial_def
-from util.evoLutUtil.Util import deletTxt, draw, save_to_txt
-from util.trainUtil import util
+from Util.EvoLUT_Util.Util import deletTxt, draw, save_to_txt
+from Util.Train_Util import util
 
 with open("main_config.json", "r") as f:
     config = json.load(f)
@@ -107,7 +106,7 @@ def initialization(m, n, c, num, times, usedPixList):
     copydir("ourCUBES/", "BestPopulation/cube/", best_pop, "BestPopulation/cube/thebestpopulathon.pickle")
     # ------------------------------ 6. tournament selection  ----------------------------------------
     numbers = [float(line.strip()) for line in open(file_path)]
-    selected = Select.tournament_selection(numbers, int(m * 0.6), "util/evoLutUtil/Select_list.txt")
+    selected = Select.tournament_selection(numbers, int(m * 0.6), "Util/EvoLUT_Util/Select_list.txt")
     New_solution = [solution[i - 1] for i in selected]
 
     # Copy and rename Hilbert files
@@ -210,10 +209,10 @@ def evolution(times, m, n, c, num, solution):
         shutil.copytree('theSegHilbert_new', 'theSegHilbert_new_test')
         with open(acc_path) as f:
             numbers_1 = [float(line.strip()) for line in f]
-        Select.tournament_selection(numbers_1, int(m * 0.6), "util/evoLutUtil/Select_list.txt")
+        Select.tournament_selection(numbers_1, int(m * 0.6), "Util/EvoLUT_Util/Select_list.txt")
 
         # --------------The number is saved in Selectilist.txt, and the selected luts table is stored in the project----------------
-        with open("util/evoLutUtil/Select_list.txt") as f:
+        with open("Util/EvoLUT_Util/Select_list.txt") as f:
             selectlist = [line.strip() for line in f]
         for x in range(m):
             shutil.copy(
