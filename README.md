@@ -11,9 +11,9 @@
 ## 📑 Table of Contents | 目录
 - [✨ Overview | 项目简介](#-overview)
 - [🎯 Features | 功能特性](#-features)
-- [📖 Usage Examples | 使用示例](#-usage examples)
+- [📖 Usage Examples | 使用示例](#-usage-examples)
 - [📚 Documentation | 文档](#-documentation)
-- [📄 Related Paper | 相关论文](#-related paper) 
+- [📄 Related Paper | 相关论文](#-Related-Papers) 
 - [🤝 Contributing | 贡献指南](#-contributing)
 
 ## ✨ Overview
