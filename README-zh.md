@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ### 快速开始
 1. **Fork** 仓库
-2. **克隆**你的 Fork: `git clone https://github.com/你的用户名/EvoLUT.git`
+2. **克隆**你的 Fork: `git clone https://github.com/您的用户名/EvoLUT.git`
 3. **安装**开发依赖: `pip install -e ".[dev]"`
 4. **创建**分支: `git checkout -b feature/你的功能`
 5. **修改**代码并测试: `pytest`
@@ -65,10 +65,12 @@ pip install -r requirements.txt
 - 使用清晰的提交信息
 
 ### 需要帮助？
-- 在 GitHub Discussions 提问
-- 参考已有的 PR 示例
+- 💬 在 [GitHub Discussions](https://github.com/ouyangyang258/EvoLUT/discussions) 提问交流
+- 🔍 参考 已合并的 [Pull Request](https://github.com/ouyangyang258/EvoLUT/pulls/) 学习示例
+- 📧 如有敏感或复杂问题，欢迎发送邮件至 [a13574873899@stu.jnu.edu.cn](mailto:a13574873899@stu.jnu.edu.cn)
 
 无论贡献大小，我们都非常感谢！🎉
+
 ## 🙏 致谢
 - 感谢所有贡献者的宝贵贡献
 - 感谢开源社区的支持

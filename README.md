@@ -65,9 +65,10 @@ Thank you for your interest in the EvoLUT project! Guidelines and instructions f
 - Update documentation
 - Use descriptive commit messages
 
-### Need Help?
-- Ask in GitHub Discussions
-- Review existing PRs for examples
+### Need help?
+- 💬 Ask a question on [GitHub Discussions](https://github.com/ouyangyang258/EvoLUT/discussions)
+- 🔍 Learn from existing examples by reviewing merged [Pull Requests](https://github.com/ouyangyang258/EvoLUT/pulls?q=is%3Apr+is%3Amerged)
+- 📧 For sensitive or complex issues, email [a13574873899@stu.jnu.edu.cn](mailto:a13574873899@stu.jnu.edu.cn)
 
 Every contribution, big or small, is appreciated! 🎉
 
