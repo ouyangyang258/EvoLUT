@@ -8,7 +8,7 @@
 
 </div>
 
-## 📑 Table of Contents | 目录
+## 📑 Table of Contents
 - [✨ Overview | 项目简介](#-overview)
 - [🎯 Features | 功能特性](#-features)
 - [📖 Usage Examples | 使用示例](#-usage-examples)
